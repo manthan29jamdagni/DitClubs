@@ -17,7 +17,7 @@
 <div class="heading">DIGI CAMPUS DIT</div>
 <div class="box">
   <div>
-	<!-- Show Login if the OAuth Request URL is set -->
+	<!-- Show Login if the OAuth Request URL is set TRYST15WK11/N9B33G-->
     <?php if (isset($authUrl)): ?>
 	  <img src="images/user.png" width="100px" size="100px" /><br/>
       <a class='login' href='<?php echo $authUrl; ?>'><img class='login' src="images/sign-in-with-google.png" width="250px" size="54px" /></a>

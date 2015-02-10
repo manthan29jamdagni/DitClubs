@@ -7,14 +7,14 @@ require_once 'C:/wamp/www/api/src/Google/Client.php';
 require_once 'C:/wamp/www/api/src/Google/Service/Oauth2.php';
 
 // Fill CLIENT ID, CLIENT SECRET ID, REDIRECT URI from Google Developer Console
- $client_id = '307523365750-8teciudj7femi3knrbsgnr2rjbe3tl6k.apps.googleusercontent.com';
- $client_secret = 'xvd7z0z8M0vZpWcTJRM_Ihsl';
- $simple_api_key = 'AIzaSyCRfu2993lZ6nqaFQf_cyLki1WeEIr4Ehw';
- $redirect_uri = 'http://localhost/clubs/index.php';
+ $client_id = '';
+ $client_secret = '';
+ $simple_api_key = '';
+ $redirect_uri = '';
  
 //Create Client Request to access Google API
 $client = new Google_Client();
-$client->setApplicationName("PHP Google OAuth Login Example");
+$client->setApplicationName("DIT CLUBS");
 $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
 $client->setRedirectUri($redirect_uri);

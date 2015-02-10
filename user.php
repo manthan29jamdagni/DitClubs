@@ -6,10 +6,10 @@ require_once 'C:/wamp/www/api/src/Google/Service/Oauth2.php';
 include "dbcontroller.php";
 
 // Fill CLIENT ID, CLIENT SECRET ID, REDIRECT URI from Google Developer Console
- $client_id = '307523365750-8teciudj7femi3knrbsgnr2rjbe3tl6k.apps.googleusercontent.com';
- $client_secret = 'xvd7z0z8M0vZpWcTJRM_Ihsl';
- $simple_api_key = 'AIzaSyCRfu2993lZ6nqaFQf_cyLki1WeEIr4Ehw';
- $redirect_uri = 'http://localhost/clubs/index.php';
+ $client_id = '';
+ $client_secret = '';
+ $simple_api_key = '';
+ $redirect_uri = '';
  
 //Create Client Request to access Google API
 $client = new Google_Client();
@@ -39,14 +39,15 @@ if ($client->getAccessToken()) {
  	{
  		
  		$test->insertOAuthUser($userData,$id);
- 		if(mysqli_affected_rows($test->conn)==1) 
+ 		if(mysqli_affected_rows($test->conn)!=1) 
  		{	
- 		echo "Successfully registered";
+ 		echo "Error";
  		}
- 		else echo "Error";
+ 		 
  	}
  	$query="SELECT * FROM user WHERE email = ".$userData->email;
  	$result = mysqli_query($test->conn,$query);
+ 	include './views.php';
  
   }else
   {
