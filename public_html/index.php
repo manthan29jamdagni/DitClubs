@@ -1,0 +1,9 @@
+<?php 
+session_start();
+require('../controllers/dbcontroller.php');
+require('../controllers/oauth.php');
+require('../controllers/action.php');
+require('./templates/header.php');
+require('./templates/view.php');
+require('./templates/footer.php');
+?>
