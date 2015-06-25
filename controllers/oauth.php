@@ -1,17 +1,17 @@
 <?php
 //Google API PHP Library includes
-require_once '../api/src/Google/Client.php';
-require_once '../api/src/Google/Service/Oauth2.php';
+require_once('api/src/Google/Client.php');
+require_once('api/src/Google/Service/Oauth2.php');
 
 // Fill CLIENT ID, CLIENT SECRET ID, REDIRECT URI from Google Developer Console
  $client_id = '307523365750-8teciudj7femi3knrbsgnr2rjbe3tl6k.apps.googleusercontent.com';
  $client_secret = 'xvd7z0z8M0vZpWcTJRM_Ihsl';
  $simple_api_key = 'AIzaSyCRfu2993lZ6nqaFQf_cyLki1WeEIr4Ehw';
- $redirect_uri = 'http://localhost/digicampus/public_html/index.php';
+ $redirect_uri = 'http://localhost/diginew/home.php';
  
 //Create Client Request to access Google API
 $client = new Google_Client();
-$client->setApplicationName("PHP Google OAuth Login Example");
+$client->setApplicationName("DIGICAMPUSDIT");
 $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
 $client->setRedirectUri($redirect_uri);
@@ -47,11 +47,14 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 if ($client->getAccessToken()) 
 {
       $userData = $objOAuthService->userinfo->get();
-      $db= new dbcontroller();
-      $event = $db->getUserByOAuthId($userData->email); //Checks Whether user Exists in The Database
+      foreach ($userData as $key => $value) {
+        echo $key."  ".$value."/n";
+        # code...
+      }
+      $event = $db->getId($userData->email); //Checks Whether user Exists in The Database
       if(!$event)
       {
-        $db->insertOAuthUser($userData); //If new User Then It inserts the details of user in DB
+        $db->insertUser($userData); //If new User Then It inserts the details of user in DB
         if(mysqli_affected_rows($db->conn)!=1) 
         { 
           echo "Error";

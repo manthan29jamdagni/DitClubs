@@ -1,0 +1,21 @@
+{
+  "name": "diginew",
+  "version": "1.0.0",
+  "description": "none",
+  "authors": [
+    "phulu & mj"
+  ],
+  "license": "MIT",
+  "homepage": "localhost/diginew",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "slide-page": "unbug/slide-page#master"
+  }
+}

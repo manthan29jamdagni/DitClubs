@@ -1,0 +1,31 @@
+body, html {
+				font-family: 'Abel', sans-serif;
+		   }
+/*nav {
+    border-radius: 40px;
+    opacity: .4;
+}
+
+nav:hover {
+    opacity: .6;
+}*/
+
+
+
+nav{
+	border-radius: 40px;
+}
+.btn:hover, .btn-large:hover {
+  background-color: #2196F3;
+  color: #846C63;
+}
+.btn, .btn-large {
+  text-decoration: none;
+  color: #FFFFFF !important;
+  background-color: #42A5F5;
+  text-transform: none;
+}
+
+.modal1 h4{
+  color: #000000;
+}
