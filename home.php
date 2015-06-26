@@ -1,8 +1,13 @@
 <?php 
-require_once('controllers/oauth.php');
+session_start();
 require_once('controllers/dbcontroller.php');
-$user=$userObj->getUserData();  
+require_once('controllers/oauth.php');
+
+$user=$db->get_userinfo($_SESSION['user_id']);
+include('./views/templates/posts.php'); 
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,11 +19,11 @@ $user=$userObj->getUserData();
 <script src="./bower_components/webcomponentsjs/webcomponents.js">
 </script>
 
-<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="./views/css/materialize.min.css"  media="screen,projection"/>
 <link href="css">
 <link rel="import" href="./bower_components/slide-page/slide-page.html">
-<link rel="stylesheet" type="text/css" href="css/stylemat.css">
-<script src="./js/handlebars-v3.0.3.js"></script>
+<link rel="stylesheet" type="text/css" href="./views/css/stylemat.css">
+<script src="./views/js/handlebars-v3.0.3.js"></script>
 </head>
 <body>
 
@@ -47,12 +52,13 @@ $user=$userObj->getUserData();
          					<div class="card blue-grey darken-1">
             					<div class="card-content white-text" id="profile">
                         
-              						<span><img src="{{pic}}"></span>
-              						<span class="card-title"><?php echo $user['name']?></span>
+              						<span><img style="height:60px;width:60px;"src=<?php echo $user['pic'];?>></span>
+              						<span class="card-title"><?php echo $user['name'];?></span>
               						<p>About Me: <?php echo $user['about'];?></p>
               						<p>Branch: <?php echo $user['branch'];?></p>
               						<p>Year: <?php echo $user['year'];?></p>
-              						<p>Clubs: {{#list}}{{clubs}}{{/list}}</p>
+              						<p>Clubs: </p>
+
             					</div>
             					<div class="card-action">
               						<a href="#">fb aur google ki links</a>
@@ -61,6 +67,7 @@ $user=$userObj->getUserData();
         				</div>
 						</div>
 		</section>
+    
 		<section>
 				<div class="center">
 						<nav class="white">
@@ -93,15 +100,18 @@ $user=$userObj->getUserData();
 				   					<div>
 				   							<div class="row"></div>
         				<div style="padding-left:25%;padding-right:25%"class="col s12 m6">
-         					<div class="card blue-grey darken-1">
+         					<div class="card blue-grey darken-1" id="status_data">
+                  <script type="text/x-handelbars" id="status-template">
             					<div class="card-content white-text">
               						<span><img src="{{pic}}"></span>
               						<span class="card-title">My Name: {{name}}</span>
-              						<p>status ka maal pani</p>
+              						<p>{{post}}</p>
             					</div>
+                     
             					<div class="card-action">
               						<a href="#">Next Status</a>
             					</div>
+                      </script> 
           					</div>
         				</div>
 						</div>
@@ -147,7 +157,7 @@ $user=$userObj->getUserData();
    </slide-page>
  </div>
  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
- <script type="text/javascript" src="js/materialize.min.js"></script>
+ <script type="text/javascript" src="./views/js/materialize.min.js"></script>
  <script type="text/javascript">
 	 $(document).ready(function(){
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
@@ -157,7 +167,14 @@ $user=$userObj->getUserData();
 	 $(document).ready(function(){
 	 	$('div.fullpage').removeAttr('hidden');
 	 });
-   
+   $(document).ready(function(){
+       var source=$('#status-template').html();
+       
+       var temp=Handlebars.compile(source);
+       var s_data=temp(xy[0]);
+       $('div#status_data').append(s_data);
+       
+ });
 </script>
  </body>
 </html>

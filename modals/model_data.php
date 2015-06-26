@@ -10,5 +10,5 @@ class userData{
 		return $this->userObject;
 	}
 }
-$userObj=new userData();
+$userObj = new userData();
 ?>

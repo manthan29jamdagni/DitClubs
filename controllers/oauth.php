@@ -1,7 +1,7 @@
 <?php
 //Google API PHP Library includes
-require_once('api/src/Google/Client.php');
-require_once('api/src/Google/Service/Oauth2.php');
+include('api/src/Google/Client.php');
+include('api/src/Google/Service/Oauth2.php');
 
 // Fill CLIENT ID, CLIENT SECRET ID, REDIRECT URI from Google Developer Console
  $client_id = '307523365750-8teciudj7femi3knrbsgnr2rjbe3tl6k.apps.googleusercontent.com';
@@ -11,13 +11,14 @@ require_once('api/src/Google/Service/Oauth2.php');
  
 //Create Client Request to access Google API
 $client = new Google_Client();
-$client->setApplicationName("DIGICAMPUSDIT");
+$client->setApplicationName("PHP Google OAuth Login Example");
 $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
 $client->setRedirectUri($redirect_uri);
 $client->setDeveloperKey($simple_api_key);
 $client->addScope("https://www.googleapis.com/auth/userinfo.email");
 $objOAuthService = new Google_Service_Oauth2($client);
+
 
 //Send Client Request
 
@@ -29,7 +30,6 @@ if (isset($_GET['code'])) {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
   
-  //$query="INSERT INTO tokens VALUES($_SESSION['access_token'],$_SESSION['refresh_token'])";
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }
 //Logout
@@ -43,14 +43,12 @@ if (isset($_REQUEST['logout'])) {
 if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   $client->setAccessToken($_SESSION['access_token']);
 }
+
+
 //if we got the access token now we can retrive data that we got from Google 
 if ($client->getAccessToken()) 
 {
       $userData = $objOAuthService->userinfo->get();
-      foreach ($userData as $key => $value) {
-        echo $key."  ".$value."/n";
-        # code...
-      }
       $event = $db->getId($userData->email); //Checks Whether user Exists in The Database
       if(!$event)
       {
@@ -61,7 +59,8 @@ if ($client->getAccessToken())
         }
       }
       
-}else //if access token is not found tben create OAuth URL to redirect user to Get one.
+}
+else //if access token is not found tben create OAuth URL to redirect user to Get one.
 {
     $authUrl = $client->createAuthUrl();
 }

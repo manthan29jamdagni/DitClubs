@@ -26,7 +26,7 @@ class db_controller{
 		}
 		if($result->num_rows>0)
 		$row=$result->fetch_assoc();
-		$userObj->setUserData($row);
+		
 		return $row;
 	}
 	function insert_status($uid,$post,$priority)
@@ -104,20 +104,24 @@ class db_controller{
 	}
 	function getId($email)
 	{
-		$query="SELECT uid from user where email=$email";
+		$query="SELECT uid from user where email='$email'";
 		$result=$this->conn->query($query);
+
 		if(!$result){
 			echo "Error "+$conn->error;
 			return;
 		}
 		$row=$result->fetch_assoc();
+		$_SESSION['user_id']=$row['uid'];
 		return $row['uid'];
 	}
 	function insertUser($userData) {		
-		$query = "INSERT INTO user(name,email,pic) VALUES($userData->name,$userData->email,$userData->picture)";
+		$query = "INSERT INTO user(name,email,pic) VALUES('$userData->name','$userData->email','$userData->picture')";
 		$result = $this->conn->query($query);
 		if(!$result)
 			die("Error:".mysqli_error($this->conn));
+		else
+			$this->getId($userData->email);
 	}
 
 }
